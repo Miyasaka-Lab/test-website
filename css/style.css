@@ -1,0 +1,2389 @@
+@charset "UTF-8";
+body {
+  font-size: 16px;
+  font-family: "Poppins", "Zen Kaku Gothic New", "Noto Serif JP", "Amatic SC", sans-serif;
+  background-color: #fff;
+  color: #222222;
+}
+
+main {
+  max-width: 2000px;
+  margin: auto;
+}
+
+p a {
+  text-decoration-line: underline;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 90px;
+  padding: 0px 100px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  color: var(--black-100, #222);
+  position: relative;
+  /* ハンバーガーメニューのスタイル */
+}
+header.subpage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  color: var(--white, #FFF);
+  /* ハンバーガーメニューが開いたら color を #222 に変更 */
+}
+header.subpage.menu-open {
+  color: #222;
+}
+header ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+}
+header ul a {
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.64px;
+}
+header .hamburger {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 1100;
+  width: 30px;
+  height: 24px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* ハンバーガーが開いた時のアニメーション */
+}
+header .hamburger .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #333; /* デフォルト（黒） */
+  border-radius: 3px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+header .hamburger.active .bar:nth-child(1) {
+  -webkit-transform: translateY(8px) rotate(45deg);
+          transform: translateY(8px) rotate(45deg);
+}
+header .hamburger.active .bar:nth-child(2) {
+  opacity: 0; /* 中央の線を非表示 */
+}
+header .hamburger.active .bar:nth-child(3) {
+  -webkit-transform: translateY(-8px) rotate(-45deg);
+          transform: translateY(-8px) rotate(-45deg);
+}
+
+/* `.subpage` の場合、ハンバーガーアイコンの色を白に変更 */
+header.subpage {
+  max-width: 100vw;
+}
+header.subpage .hamburger .bar {
+  background-color: #fff;
+}
+
+header {
+  background-color: transparent; /* デフォルトは透明 */
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out; /* スムーズな切り替え */
+}
+
+/* 初期状態（メニューが閉じているとき） */
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url("../public/images/hamburger_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* 背景を後ろに配置 */
+  /* ここが重要！初期状態を透明に */
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1); /* 少しズームアウトした状態から開始 */
+  /* スムーズなアニメーション */
+  -webkit-transition: opacity 0.4s ease-in-out, visibility 0.4s, -webkit-transform 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s, -webkit-transform 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0.4s;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0.4s, -webkit-transform 0.4s ease-in-out;
+}
+
+/* ハンバーガーメニューが開いたとき */
+header.active::before {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: scale(1);
+          transform: scale(1); /* 元のサイズに戻す */
+}
+
+/* レスポンシブデザイン：タブレットサイズ以下でハンバーガーメニューを表示 */
+@media (max-width: 1000px) {
+  header {
+    padding: 0px 40px; /* スペースを狭める */
+  }
+  header .hamburger {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; /* ハンバーガーメニューを表示 */
+  }
+  header ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 20px;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+  }
+  header ul.show {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  header li {
+    padding: 10px 20px;
+    text-align: center;
+  }
+}
+#first-view {
+  height: 600px;
+  margin: 86px;
+  /* 背景画像の設定 */
+  background-image: url(../public/images/fv-1.png); /* 画像のパスを指定 */
+  background-size: contain; /* 画像を全体に表示するように調整 */
+  background-position: center; /* 画像を中央に配置 */
+  background-repeat: no-repeat; /* 画像の繰り返しを無効にする */
+  position: relative;
+  z-index: -10;
+}
+@media (max-width: 767px) {
+  #first-view {
+    background-size: contain; /* 画像を全体に表示するように調整 */
+    margin: 35px;
+    height: 300px;
+    margin-bottom: 150px;
+  }
+}
+#first-view .fv-inner {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  position: absolute;
+  bottom: 130px;
+  right: 80px;
+}
+@media (max-width: 767px) {
+  #first-view .fv-inner {
+    position: absolute; /* 絶対配置に変更 */
+    bottom: -80px; /* 要素の下部に配置 */
+    left: 50%; /* 中央寄せ */
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%); /* 完全に中央揃え */
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; /* 縦並び */
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; /* 子要素を中央揃え */
+    gap: 8px;
+    width: 90%;
+  }
+}
+#first-view .fv-text {
+  color: var(--black-100, #222);
+  text-align: center;
+  -webkit-font-feature-settings: "vrt2" on;
+          font-feature-settings: "vrt2" on;
+  font-family: "Zen Kaku Gothic New";
+  font-size: 28.187px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 39.461px */
+  letter-spacing: 12.564px;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl; /* 縦書きの設定 */
+  text-orientation: upright; /* 縦書き時のテキスト方向を設定 */
+  background-color: white; /* 背景色を白に設定 */
+}
+@media (max-width: 767px) {
+  #first-view .fv-text {
+    font-size: 20px;
+    letter-spacing: 0.8px;
+    width: 100%;
+    -webkit-writing-mode: horizontal-tb;
+        -ms-writing-mode: lr-tb;
+            writing-mode: horizontal-tb; /* 横書きに戻す */
+    /* text-orientation: mixed;  削除 */
+    -webkit-font-feature-settings: "vrt2" off;
+            font-feature-settings: "vrt2" off; /* スマホでは無効化 */
+  }
+}
+
+#concept {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 72px 140px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 56px;
+  background: var(--black-3, #F8F8F8);
+  margin: auto;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #concept {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #concept {
+    padding: 72px 72px;
+  }
+}
+@media (max-width: 767px) {
+  #concept {
+    padding: 20px 20px;
+    gap: 20px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+#concept .concept-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+}
+#concept .concept-left h2 {
+  color: var(--black-100, #222);
+  /* en/40 */
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+#concept .concept-left .concept-subtitle {
+  /* ja/24-m */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 38.4px */
+  letter-spacing: 0.48px;
+}
+#concept img {
+  max-height: 400px;
+}
+
+/* フェードアニメーション */
+.fade {
+  -webkit-animation: fadeEffect 1.5s ease-in-out;
+          animation: fadeEffect 1.5s ease-in-out;
+}
+
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeEffect {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#plan {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 72px 140px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 56px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #plan {
+    padding: 72px 72px;
+  }
+}
+@media (max-width: 767px) {
+  #plan {
+    padding: 20px 20px;
+  }
+}
+#plan .plan-titleinner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+  width: 539px;
+  max-width: 100%;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+#plan .plan-titleinner h2 {
+  color: var(--black-100, #222);
+  /* en/40 */
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+#plan .plan-card-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 100%;
+  width: 1000px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  gap: 56px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+#plan .plan-card-inner .plan-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+  /* plan-card の幅を柔軟に設定 */
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 400px;
+          flex: 1 1 400px; /* 最小幅472pxで、スペースに合わせて広がる */
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #plan .plan-card-inner .plan-card {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 350px;
+            flex: 1 1 350px; /* 親要素の幅が1000px以下の場合 */
+  }
+}
+@media (max-width: 767px) {
+  #plan .plan-card-inner .plan-card {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 100%;
+            flex: 1 1 100%; /* 親要素の幅が600px以下の場合、1列に */
+  }
+}
+#plan .plan-card-inner .plan-card .plan-card-title-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4px;
+}
+#plan .plan-card-inner .plan-card .plan-card-title-inner .plan-card-title-subtitle {
+  color: var(--black-60, #7A7A7A);
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.64px;
+}
+#plan .plan-card-inner .plan-card .plan-card-title-inner .plan-card-title {
+  color: var(--black-100, #222);
+  /* ja/24-b */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 38.4px */
+  letter-spacing: 0.48px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.plan-card-button {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+  border: 1px solid var(--black-100, #222);
+  background: var(--white, #FFF);
+  color: var(--black-100, #222);
+  font-weight: bold;
+  text-decoration: none;
+  overflow: hidden;
+  -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.plan-card-button,
+.contact-button,
+.about-button {
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+.plan-card-button::before,
+.contact-button::before,
+.about-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #007bff; /* ホバー時の背景色 */
+  -webkit-transition: left 0.3s ease-in-out;
+  transition: left 0.3s ease-in-out;
+  z-index: 0;
+}
+.plan-card-button:hover::before,
+.contact-button:hover::before,
+.about-button:hover::before {
+  left: 0; /* 背景が左から右に移動 */
+}
+.plan-card-button:hover,
+.contact-button:hover,
+.about-button:hover {
+  color: #fff; /* 文字色を白に */
+  border-color: #007bff;
+}
+.plan-card-button div, .plan-card-button img,
+.contact-button div,
+.contact-button img,
+.about-button div,
+.about-button img {
+  position: relative;
+  z-index: 1; /* テキストやアイコンを前面に */
+  -webkit-transition: -webkit-filter 0.3s ease-in-out;
+  transition: -webkit-filter 0.3s ease-in-out;
+  transition: filter 0.3s ease-in-out;
+  transition: filter 0.3s ease-in-out, -webkit-filter 0.3s ease-in-out;
+}
+.plan-card-button:hover img,
+.contact-button:hover img,
+.about-button:hover img {
+  -webkit-filter: invert(100%);
+          filter: invert(100%);
+}
+
+#CTA {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 90px 0px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 200px;
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+  background: var(--black-3, #F8F8F8);
+}
+@media (max-width: 767px) {
+  #CTA {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 56px;
+  }
+}
+#CTA .cta-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+}
+#CTA .cta-text {
+  color: var(--black-100, #222);
+  /* en/32 */
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.28px;
+}
+
+#gallery {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 72px 140px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+#gallery.subpage {
+  padding: 0px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #gallery {
+    padding: 72px 72px;
+  }
+}
+@media (max-width: 767px) {
+  #gallery {
+    padding: 20px 20px;
+    margin: 40px 0px;
+  }
+}
+#gallery h2 {
+  color: var(--black-100, #222);
+  /* en/40 */
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+#gallery .gallery-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1000px;
+  max-width: 100%;
+  margin: 0 auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  gap: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #gallery .gallery-inner {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  #gallery .gallery-inner {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  #gallery .gallery-inner img {
+    width: 20%; /* 画面幅の1/4に設定 */
+    max-width: 100%; /* 画像がはみ出さないように */
+    height: auto; /* アスペクト比を維持 */
+  }
+}
+
+#about {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 72px 90px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 56px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #about {
+    padding: 72px 72px;
+  }
+}
+@media (max-width: 767px) {
+  #about {
+    padding: 20px 20px;
+  }
+}
+#about .about-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1000px;
+  max-width: 80%;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 43px;
+  margin: auto;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #about .about-inner {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+@media (max-width: 767px) {
+  #about .about-inner {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    max-width: 100%;
+  }
+}
+#about .about-inner img {
+  max-width: 40%;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #about .about-inner img {
+    max-width: 80%;
+  }
+}
+@media (max-width: 767px) {
+  #about .about-inner img {
+    max-width: 100%;
+  }
+}
+#about .about-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+}
+#about .about-right .about-title {
+  color: var(--black-100, #222);
+  /* en/40 */
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+#about .about-right .about-name {
+  color: var(--black-100, #222);
+  /* en/20 */
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 160%; /* 32px */
+  letter-spacing: 0.8px;
+}
+#about .about-right .about-text {
+  color: var(--black-100, #222);
+  /* ja/16-m */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+  letter-spacing: 0.32px;
+}
+#about .about-right .about-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+  border: 1px solid var(--black-100, #222);
+}
+#about .about-right .about-button div {
+  /* en/16 */
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.64px;
+}
+
+#contact {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 56px;
+  padding-bottom: 72px;
+}
+@media (max-width: 767px) {
+  #contact {
+    padding: 20px;
+  }
+}
+#contact h2 {
+  color: var(--black-100, #222);
+  /* en/40 */
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+#contact .required::after {
+  content: "必須";
+  margin-left: 4px;
+  padding: 0px 5px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  border-radius: 1px;
+  background: var(--primary-100, #478ABA);
+  color: var(--Text-White, #FFF);
+  /* ja/14-m */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.28px;
+}
+#contact form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 24px;
+}
+#contact form div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  /* 選択されたときのデザイン */
+  /* チェックマーク（カスタム） */
+  /* チェックされたときのマーク表示 */
+  /* 選択されたときのデザイン */
+  /* チェックマーク（カスタム） */
+  /* チェックされたときのマーク表示 */
+  /* スマホ版では1列表示 */
+}
+@media (max-width: 767px) {
+  #contact form div {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+}
+#contact form div label {
+  color: var(--black-100, #222);
+  /* ja/16-m */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+  letter-spacing: 0.32px;
+}
+#contact form div input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 680px;
+  margin: auto;
+  padding: 10px 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: var(--black-3, #F8F8F8);
+  border: 0px solid #FFF; /* 枠線 */
+}
+@media (max-width: 767px) {
+  #contact form div input {
+    width: 100%;
+  }
+}
+#contact form div .contact-plan {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; /* 要素が折り返すように */
+  gap: 15px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start; /* 左寄せ（必要に応じて変更） */
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start; /* 上揃え */
+  width: 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  max-width: 680px;
+}
+@media (max-width: 767px) {
+  #contact form div .contact-plan {
+    width: 100%;
+    margin: auto;
+  }
+}
+#contact form div .contact-plan-set {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  width: auto;
+}
+#contact form div input[type=radio],
+#contact form div input[type=checkbox] {
+  width: auto;
+  margin: 0px;
+  appearance: none; /* デフォルトのラジオボタンを無効化 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px;
+  width: 20px; /* ボタンのサイズ */
+  height: 20px;
+  border: 2px solid #FFF; /* 枠線 */
+  background-color: #F8F8F8; /* 背景色 */
+  border-radius: 4px; /* ← 角を少し丸める（完全な四角なら 0px） */
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+#contact form div input[type=radio]:checked {
+  background-color: #333; /* チェック時の背景色 */
+}
+#contact form div input[type=radio]::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none; /* 非表示（チェック時のみ表示） */
+}
+#contact form div input[type=radio]:checked::before {
+  display: block;
+}
+#contact form div input[type=checkbox]:checked {
+  background-color: #333; /* チェック時の背景色 */
+}
+#contact form div input[type=checkbox]::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -60%) rotate(45deg);
+          transform: translate(-50%, -60%) rotate(45deg);
+  display: none; /* 非表示（チェック時のみ表示） */
+}
+#contact form div input[type=checkbox]:checked::before {
+  display: block;
+}
+#contact form div label {
+  width: auto;
+}
+@media (max-width: 600px) {
+  #contact form div .contact-plan-set {
+    width: 100%;
+  }
+}
+#contact form div textarea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 680px;
+  height: 231.789px;
+  border: 0px solid #FFF; /* 枠線 */
+  background-color: #f8F8F8;
+  padding: 10px 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  color: var(--black-60, #7A7A7A);
+  /* ja/16-m */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+  letter-spacing: 0.32px;
+}
+@media (max-width: 767px) {
+  #contact form div textarea {
+    width: 100%;
+  }
+}
+#contact form .contact-privacy {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: auto;
+}
+#contact form .contact-privacy input[type=checkbox] {
+  width: auto;
+}
+#contact form .contact-privacy label {
+  width: auto;
+}
+#contact .contact-button-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; /* 水平方向の中央揃え */
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; /* 必要なら垂直方向の中央揃え */
+  width: 100%; /* 親要素の幅を確保 */
+  margin-top: 14px;
+}
+#contact .contact-button-area .contact-button {
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+  border: 1px solid var(--black-100, #222);
+}
+#contact .contact-button-area .contact-button div {
+  /* en/16 */
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.64px;
+}
+
+footer {
+  font-family: Poppins;
+  background: var(--black-60, #7A7A7A);
+  color: #FFF;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 40px 100px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+@media (max-width: 767px) {
+  footer {
+    padding: 20px 20px;
+  }
+}
+footer .footer-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; /* 幅が足りない場合は折り返す */
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; /* 中央揃え */
+  max-width: 100%; /* 幅が大きすぎないように */
+}
+@media (max-width: 767px) {
+  footer .footer-menu {
+    gap: 20px;
+  }
+}
+
+.subpage main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1280px;
+  max-width: 100%;
+  padding: 72px 140px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 56px;
+  margin: auto;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .subpage main {
+    padding: 90px 60px;
+  }
+}
+@media (max-width: 767px) {
+  .subpage main {
+    padding: 90px 20px;
+  }
+}
+
+.subpage-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 260px;
+  padding: 40px 0px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4px;
+}
+.subpage-title .subpage-maintitle {
+  color: var(--white, #FFF);
+  /* en/40 */
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+@media (max-width: 767px) {
+  .subpage-title .subpage-maintitle {
+    font-size: 32px;
+    max-width: 100vw; /* 画面幅を超えないようにする */
+    word-wrap: break-word; /* 長い単語がある場合も折り返す */
+    overflow-wrap: break-word; /* 現在の単語を強制的に折り返す */
+    white-space: normal; /* 自然に改行できるようにする */
+  }
+}
+.subpage-title .subpage-subtitle {
+  color: var(--white, #FFF);
+  /* ja/20-b */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 32px */
+  letter-spacing: 0.4px;
+}
+.subpage-title.wedding {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(134, 130, 130, 0.2)), to(rgba(134, 130, 130, 0.2))), url(../public/images/frame-625802.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background: linear-gradient(0deg, rgba(134, 130, 130, 0.2) 0%, rgba(134, 130, 130, 0.2) 100%), url(../public/images/frame-625802.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background-position: center; /* 画像を中央に配置 */
+  background-size: cover;
+}
+.subpage-title.promotion {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(134, 130, 130, 0.2)), to(rgba(134, 130, 130, 0.2))), url(../public/images/Frame-626016.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background: linear-gradient(0deg, rgba(134, 130, 130, 0.2) 0%, rgba(134, 130, 130, 0.2) 100%), url(../public/images/Frame-626016.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background-position: center; /* 画像を中央に配置 */
+  background-size: cover;
+}
+.subpage-title.family {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(134, 130, 130, 0.2)), to(rgba(134, 130, 130, 0.2))), url(../public/images/frame-625868.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background: linear-gradient(0deg, rgba(134, 130, 130, 0.2) 0%, rgba(134, 130, 130, 0.2) 100%), url(../public/images/frame-625868.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background-position: center; /* 画像を中央に配置 */
+  background-size: cover;
+}
+.subpage-title.school {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(134, 130, 130, 0.2)), to(rgba(134, 130, 130, 0.2))), url(../public/images/Frame-school.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background: linear-gradient(0deg, rgba(134, 130, 130, 0.2) 0%, rgba(134, 130, 130, 0.2) 100%), url(../public/images/Frame-school.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background-position: center; /* 画像を中央に配置 */
+  background-size: cover;
+}
+.subpage-title.QA {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(134, 130, 130, 0.2)), to(rgba(134, 130, 130, 0.2))), url(../public/images/Frame-about.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background: linear-gradient(0deg, rgba(134, 130, 130, 0.2) 0%, rgba(134, 130, 130, 0.2) 100%), url(../public/images/Frame-about.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background-position: center; /* 画像を中央に配置 */
+  background-size: cover;
+}
+.subpage-title.about {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(134, 130, 130, 0.2)), to(rgba(134, 130, 130, 0.2))), url(../public/images/Frame-about.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background: linear-gradient(0deg, rgba(134, 130, 130, 0.2) 0%, rgba(134, 130, 130, 0.2) 100%), url(../public/images/Frame-about.png) lightgray -4.129px -184.04px/100.481% 278.256% no-repeat;
+  background-position: center; /* 画像を中央に配置 */
+  background-size: cover;
+}
+
+.breadcrumb {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  color: var(--black-60, #7A7A7A);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+  padding: 10px 100px;
+  /* en/16 */
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.64px;
+}
+@media (max-width: 767px) {
+  .breadcrumb {
+    padding: 10px 20px;
+  }
+}
+
+.breadcrumb li {
+  display: inline;
+}
+
+#subpage-plan {
+  margin-bottom: 90px;
+}
+#subpage-plan h2 {
+  color: var(--black-100, #222);
+  /* en/40 */
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+#subpage-plan .plan-cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 56px;
+}
+#subpage-plan .plan-cards .plan-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+}
+#subpage-plan .plan-cards .plan-card-title {
+  color: #fff;
+  width: 100%;
+  padding: 8px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: var(--primary-100, #478ABA);
+}
+@media (max-width: 767px) {
+  #subpage-plan .plan-cards .plan-card-title {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+#subpage-plan .plan-cards .plan-card-contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+}
+@media (max-width: 767px) {
+  #subpage-plan .plan-cards .plan-card-contents {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    gap: 20px;
+    -ms-flex-item-align: stretch;
+        align-self: stretch;
+  }
+}
+#subpage-plan .plan-cards .plan-card-img {
+  height: 200px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+@media (max-width: 767px) {
+  #subpage-plan .plan-cards .plan-card-img {
+    max-width: 80vw;
+    margin: auto;
+  }
+}
+#subpage-plan .plan-cards .card-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+}
+#subpage-plan .plan-cards .card-details .card-details-text {
+  color: var(--black-100, #222);
+  /* ja/16-m */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+  letter-spacing: 0.32px;
+}
+#subpage-plan .plan-cards .card-details table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#subpage-plan .plan-cards .card-details th, #subpage-plan .plan-cards .card-details td {
+  border: none; /* 通常の枠線は削除 */
+  padding: 8px;
+  text-align: left;
+  border: 1px solid var(--black-10, #E0E0E0);
+  background: var(--white, #FFF);
+}
+#subpage-plan .plan-cards .card-details th.item, #subpage-plan .plan-cards .card-details td.item {
+  border: 1px solid var(--black-10, #E0E0E0);
+  background: var(--black-3, #F8F8F8);
+  width: 106px;
+}
+#subpage-plan .plan-cards .card-details th {
+  background-color: #f2f2f2;
+}
+#subpage-plan .plan-cards .card-details .highlight {
+  color: var(--black-100, #222);
+  /* en/24 */
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+#subpage-plan .plan-cards .card-details .subtext {
+  color: var(--black-60, #7A7A7A);
+  /* ja/14-m */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 142.857% */
+  letter-spacing: 0.28px;
+}
+#subpage-plan .special-contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+  margin-top: 90px;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+@media (max-width: 767px) {
+  #subpage-plan .special-contents {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+#subpage-plan .special-contents .special-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 480px;
+  max-width: 100%;
+  padding: 40px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 16px;
+  border-radius: 4px;
+}
+#subpage-plan .special-contents .special-content.present {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6))), url(../public/images/Special-present.png) lightgray 50%/cover no-repeat;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%), url(../public/images/Special-present.png) lightgray 50%/cover no-repeat;
+}
+#subpage-plan .special-contents .special-content.offer {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6))), url(../public/images/Special-offer.png) lightgray 50%/cover no-repeat;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%), url(../public/images/Special-offer.png) lightgray 50%/cover no-repeat;
+}
+#subpage-plan .special-contents .special-content .special-title {
+  color: var(--black-100, #222);
+  /* en/32 */
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.28px;
+}
+#subpage-plan .special-contents .special-content .special-texts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 12px;
+}
+#subpage-plan .special-contents .special-content .special-texts .special-text-03 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 12px;
+}
+#subpage-plan .special-contents .special-content .special-offer-01 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#subpage-plan .special-contents .special-content .special-offer-02 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+#subpage-plan .special-contents .special-content .special-offer-02 div:first-child {
+  font-weight: bold;
+  font-size: 18px;
+  color: #222;
+  z-index: 1; /* 白丸の上にテキストを配置 */
+  background-color: #fff;
+  padding: 10px 16px; /* 内側の余白を調整 */
+  border-radius: 50%; /* 丸い形状を作る */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 80px; /* 円のサイズ */
+  height: 80px; /* 円のサイズ */
+  text-align: center;
+}
+#subpage-plan .special-contents .special-content .highlight-text {
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+#reviews {
+  text-align: center;
+}
+#reviews h2 {
+  color: var(--black-100, #222);
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+#reviews .reviews-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden;
+  z-index: 5;
+  overflow: visible;
+}
+#reviews .reviews-contents {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 56px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #reviews .reviews-contents {
+    width: 80%;
+  }
+}
+@media (max-width: 767px) {
+  #reviews .reviews-contents {
+    width: 75%;
+  }
+}
+#reviews .reviews-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 100%;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+  transition: opacity 1s ease, -webkit-transform 1s ease;
+  transition: opacity 1s ease, transform 1s ease;
+  transition: opacity 1s ease, transform 1s ease, -webkit-transform 1s ease;
+  padding: 72px 0;
+}
+#reviews .reviews-content.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+}
+#reviews .reviews-content img {
+  max-width: 50%;
+}
+@media (max-width: 767px) {
+  #reviews .reviews-content img {
+    max-width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  #reviews .reviews-content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    gap: 20px;
+  }
+}
+#reviews .review-details {
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 12px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+}
+#reviews .review-details .review-profiles {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 4px;
+}
+#reviews .review-details .review-name {
+  color: var(--black-100, #222);
+  font-family: "Zen Kaku Gothic New";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%;
+  letter-spacing: 0.32px;
+}
+#reviews .review-details .review-profile {
+  color: var(--black-60, #7A7A7A);
+  font-family: "Zen Kaku Gothic New";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.28px;
+}
+#reviews .review-details .review-tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 12px;
+}
+#reviews .review-details .review-tag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 2px 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  gap: 10px;
+  border-radius: 32px;
+  background: var(--black-3, #F8F8F8);
+}
+#reviews .review-details .review-eval {
+  font-size: 20px;
+  color: #478ABA;
+}
+#reviews .review-prev, #reviews .review-next {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  background: #FFF;
+  color: #478ABA;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 50%;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
+  z-index: 10;
+}
+#reviews .review-prev:hover, #reviews .review-next:hover {
+  background: rgba(200, 200, 200, 0.8);
+}
+#reviews .review-prev {
+  left: -80px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #reviews .review-prev {
+    left: 0px;
+  }
+}
+@media (max-width: 767px) {
+  #reviews .review-prev {
+    left: 0px;
+  }
+}
+#reviews .review-next {
+  right: -80px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #reviews .review-next {
+    right: -20px;
+  }
+}
+@media (max-width: 767px) {
+  #reviews .review-next {
+    right: 20px;
+  }
+}
+
+#flow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 72px 0px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 56px;
+}
+#flow h2 {
+  color: var(--black-100, #222);
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+#flow .flow-contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 32px;
+}
+#flow .flow-content {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 56px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #flow .flow-content {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  #flow .flow-content {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 10px;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+#flow .flow-content .flow-content-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 140px;
+}
+@media (max-width: 767px) {
+  #flow .flow-content .flow-content-left {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    gap: 10px;
+    width: auto;
+  }
+}
+#flow .flow-content .flow-content-left .flow-step {
+  display: inline-block;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.56px;
+  color: var(--white, #FFF);
+  padding: 8px 10px;
+  background: var(--primary-100, #478ABA);
+}
+#flow .flow-content-text {
+  max-width: 613px;
+  font-family: "Zen Kaku Gothic New";
+  font-size: 14px;
+}
+@media (max-width: 767px) {
+  #flow .flow-content-text {
+    max-width: 100%;
+  }
+}
+
+.about-message-title {
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 32px */
+  letter-spacing: 0.4px;
+}
+
+#profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1000px;
+  max-width: 100%;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 43px;
+}
+@media (max-width: 767px) {
+  #profile {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+#profile .profile-contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+}
+#profile .profile-contents .profile-name {
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.28px;
+}
+#profile .profile-contents .profile-job {
+  color: var(--black-100, #222);
+  /* en/16 */
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.64px;
+}
+
+#tools {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1280px;
+  max-width: 100%;
+  padding: 90px 140px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 56px;
+  margin: auto;
+  background: url(../public/images/about-tool.png) lightgray 50%/cover no-repeat;
+}
+@media (max-width: 767px) {
+  #tools {
+    padding: 90px 20px;
+  }
+}
+#tools .tools-contents {
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+}
+#tools h2 {
+  font-family: Poppins;
+  font-size: 32px;
+}
+#tools table {
+  width: 100%;
+  border-collapse: separate; /* 列間隔を設定するためにseparateを使用 */
+  border-spacing: 20px 12px; /* 列間隔: 20px, 行間隔: 12px */
+}
+#tools th, #tools td {
+  text-align: left;
+}
+#tools .tools-comennt {
+  font-size: 14px;
+  color: var(--black-60, #7A7A7A);
+}
+
+#history h2 {
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.28px;
+  margin-bottom: 56px;
+}
+#history table {
+  width: 100%;
+  border-spacing: 0 12px; /* 列間の間隔だけを20pxに設定（行間隔は0px） */
+}
+#history th, #history td {
+  text-align: left; /* テキストを左揃え */
+  min-width: 120px;
+}
+#history td:first-child {
+  padding-right: 40px; /* セル内の余白 */
+}
+#history tr {
+  border-bottom: 40px solid transparent; /* 行間隔（12px） */
+}
+@media (max-width: 767px) {
+  #history tr {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 8px;
+    border-bottom: 20px solid transparent; /* 行間隔（12px） */
+  }
+}
+#history td:first-child::before {
+  content: ""; /* 中身は空にして図形として表示 */
+  width: 8px; /* 黒丸の直径 */
+  height: 8px; /* 黒丸の直径 */
+  border-radius: 50%; /* 丸型にする */
+  background-color: black; /* 黒い色 */
+  margin-right: 10px; /* 黒丸とテキストの間にスペース */
+  display: inline-block; /* インライン要素として表示 */
+}
+
+#instagram {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#instagram h2 {
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+
+#point .point-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1000px;
+  max-width: 90vw;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #point .point-inner {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+@media (max-width: 767px) {
+  #point .point-inner {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+#point .point-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 300px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #point .point-content {
+    width: 500px;
+    max-width: 90%;
+    margin-bottom: 47px;
+  }
+}
+@media (max-width: 767px) {
+  #point .point-content {
+    width: 350px;
+    max-width: 90%;
+    margin-bottom: 47px;
+  }
+}
+#point .point-icon {
+  width: 60px;
+  height: 60px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  background-color: #F8F8F8; /* 背景色を指定 */
+  border-radius: 50%; /* 円形にする */
+  text-align: center;
+}
+#point .point-icon .point-num-text {
+  color: var(--black-100, #222);
+  /* en/12 */
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.48px;
+  margin-top: 5px;
+}
+#point .point-icon .point-num {
+  color: var(--black-100, #222);
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 160%; /* 32px */
+  letter-spacing: 0.8px;
+}
+#point .point-title {
+  color: var(--black-100, #222);
+  /* ja/20-b */
+  font-family: "Zen Kaku Gothic New";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 32px */
+  letter-spacing: 0.4px;
+}
+
+.qa-section {
+  margin: 50px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 880px;
+  max-width: 80vw;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+
+.qa-genre {
+  color: var(--black-100, #222);
+  /* en/32 */
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.28px;
+}
+
+.qa-item .icon {
+  color: var(--black-100, #222);
+  /* en/32 */
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.28px;
+}
+
+.question {
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 12px 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+}
+
+.question:hover {
+  background-color: #f1f1f1;
+}
+
+.answer {
+  padding: 15px 20px;
+  display: none;
+  padding: 12px 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+  overflow: hidden; /* float の親要素の高さを維持 */
+}
+
+.answer > * {
+  float: left;
+}
+
+.answer > .qa-genre {
+  float: left;
+  margin-right: 20px; /* 隙間を調整 */
+}
+
+.qa-item:last-child .question {
+  border-bottom: none;
+}
+
+.qa-text {
+  width: 750px;
+  max-width: 50vw; /* 画面幅の 70% */
+}
+
+.success-message {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.success-message h2 {
+  color: #4CAF50;
+}
+
+.success-message ul {
+  list-style: none;
+  padding: 0;
+}
+
+.success-message ul li {
+  margin-bottom: 10px;
+}
+
+.back-to-top {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.back-to-top:hover {
+  background-color: #45a049;
+}
